@@ -1,0 +1,9 @@
+plugins {
+	id 'biz.aQute.bnd.builder'
+}
+
+dependencies {
+	compileOnly "com.liferay.lugbot:com.liferay.code.upgrade.providers:1.0.0-SNAPSHOT"
+	compileOnly "org.osgi:org.osgi.service.component:1.4.0"
+	compileOnly "org.apache.commons:commons-compress:1.20"
+}

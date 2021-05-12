@@ -1,0 +1,30 @@
+import static org.gradle.api.JavaVersion.*
+
+subprojects {
+
+    group 'com.liferay.lugbot.providers.springmvcportlet'
+    version = '1.0.0-SNAPSHOT'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            name 'xanaduSnapshots'
+            url 'https://repository-cdn.liferay.com/nexus/content/repositories/xanadu-snapshots/'
+        }
+    }
+
+
+    tasks.withType(JavaCompile).configureEach {
+        sourceCompatibility = VERSION_1_8
+        targetCompatibility = VERSION_1_8
+    }
+
+}
+
+configurations.each { println it.name }
+
+wrapper {
+    gradleVersion = '6.8.3'
+    distributionType = Wrapper.DistributionType.ALL
+}
