@@ -1,32 +1,4 @@
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        maven {
-            url 'https://software.r3.com/artifactory/corda-dev'
-        }
-    }
+rootProject.name = 'LugBot Extensions - Spring MVC Portlet'
 
-    plugins {
-        id 'biz.aQute.bnd.builder' version bnd_version
-        id 'org.jetbrains.kotlin.jvm' version kotlin_version
-        id 'net.corda.plugins.quasar-utils' version corda_plugins_version
-        id 'net.corda.plugins.cordapp-cpk' version corda_plugins_version
-        id 'com.gradle.enterprise' version '3.4.1'
-    }
-}
-
-plugins {
-    id 'com.gradle.enterprise'
-}
-
-rootProject.name = 'OSGi example'
-
-include 'lugbot-extensions-spring-mvc-portlet-provider'
-include 'lugbot-extensions-spring-mvc-portlet-provider-test'
-
-gradleEnterprise {
-    buildScan {
-        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-        termsOfServiceAgree = 'yes'
-    }
-}
+include 'spring-mvc-portlet-provider'
+include 'spring-mvc-portlet-provider-test'

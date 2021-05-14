@@ -1,3 +1,0 @@
-Bundle-SymbolicName: lugbot-extensions-spring-mvc-portlet-provider-test
-Test-Cases: \${classes;HIERARCHY_INDIRECTLY_ANNOTATED;org.junit.platform.commons.annotation.Testable;CONCRETE}
--noimportjava: true
