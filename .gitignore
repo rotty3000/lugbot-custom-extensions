@@ -15,6 +15,7 @@
 .settings/
 .DS_Store
 .project
+.gradle
 
 /cloudsvc-sdk/.ivy
 
