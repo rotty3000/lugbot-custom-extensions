@@ -12,7 +12,7 @@ dependencies {
     testImplementation "com.liferay.lugbot:com.liferay.lugbot.api:1.0.0-SNAPSHOT"
 
     testImplementation "org.apache.commons:commons-compress:1.20"
-    testImplementation "org.osgi:org.osgi.test.junit5:$osgi_test_junit5_version"
+    testImplementation "org.osgi:org.osgi.test.junit5:0.9.0"
 
 
     testRuntimeOnly "biz.aQute.bnd:aQute.libg:5.3.0"
@@ -30,25 +30,25 @@ dependencies {
     testRuntimeOnly "javax.servlet.jsp:javax.servlet.jsp-api:2.2.1"
     testRuntimeOnly "javax.servlet:javax.servlet-api:3.1.0"
 
-    testRuntimeOnly "org.apache.felix:org.apache.felix.framework:$felix_version"
-    testRuntimeOnly "org.apache.felix:org.apache.felix.logback:$felix_logback_version"
-    testRuntimeOnly "org.apache.felix:org.apache.felix.metatype:$felix_metatype_version"
-    testRuntimeOnly "org.apache.felix:org.apache.felix.scr:$felix_scr_version"
+    testRuntimeOnly "org.apache.felix:org.apache.felix.framework:6.0.4"
+    testRuntimeOnly "org.apache.felix:org.apache.felix.logback:1.0.2"
+    testRuntimeOnly "org.apache.felix:org.apache.felix.metatype:1.2.2"
+    testRuntimeOnly "org.apache.felix:org.apache.felix.scr:2.1.20"
 
     testRuntimeOnly "org.apache.servicemix.bundles:org.apache.servicemix.bundles.junit:4.12_1"
 
     testRuntimeOnly "org.codehaus.groovy:groovy:2.5.9"
 
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version"
-    testRuntimeOnly "org.junit.platform:junit-platform-launcher:$junit_platform_version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-api:5.7.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.1"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.7.1"
 
     testRuntimeOnly "org.osgi:org.osgi.service.component.annotations:1.4.0"
     testRuntimeOnly "org.osgi:org.osgi.service.component:1.4.0"
     testRuntimeOnly "org.osgi:org.osgi.service.log:1.4.0"
     testRuntimeOnly "org.osgi:org.osgi.service.metatype.annotations:1.4.0"
-    testRuntimeOnly "org.osgi:org.osgi.util.function:$osgi_util_function_version"
-    testRuntimeOnly "org.osgi:org.osgi.util.promise:$osgi_util_promise_version"
+    testRuntimeOnly "org.osgi:org.osgi.util.function:1.1.0"
+    testRuntimeOnly "org.osgi:org.osgi.util.promise:1.1.1"
     testRuntimeOnly "org.osgi:osgi.core:7.0.0"
 
     testRuntimeOnly "org.tukaani:xz:1.9"

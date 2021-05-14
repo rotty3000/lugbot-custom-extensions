@@ -199,8 +199,6 @@ public class SpringMVCPortletAutoCorrectBreakingChangesProvider implements Upgra
 								problem -> {
 									sbDetails.append("- ");
 									sbDetails.append(name);
-									//sbDetails.append(" ");
-									//sbDetails.append(revCommit.getShortMessage());
 								});
 						}
 					);
