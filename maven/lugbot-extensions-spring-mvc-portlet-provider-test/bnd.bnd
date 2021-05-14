@@ -1,4 +1,0 @@
-Bundle-SymbolicName: com.liferay.lugbot.custom.extension.test;singleton:=true
-Test-Cases: ${classes;CONCRETE;PUBLIC;NAMED;*Test*}
-javac.source: 1.8
-javac.target: 1.8
