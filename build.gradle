@@ -8,16 +8,12 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven {
-            name 'xanaduSnapshots'
-            url 'https://repository-cdn.liferay.com/nexus/content/repositories/xanadu-snapshots/'
-        }
     }
 
 
     tasks.withType(JavaCompile).configureEach {
-        sourceCompatibility = VERSION_1_8
-        targetCompatibility = VERSION_1_8
+        sourceCompatibility = VERSION_11
+        targetCompatibility = VERSION_11
     }
 
 }

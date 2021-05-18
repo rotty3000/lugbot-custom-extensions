@@ -17,7 +17,15 @@
 
 package com.liferay.lugbot.custom.springmvcportlet;
 
-import static com.liferay.lugbot.api.util.LogFunctions.logError;
+import com.liferay.lugbot.api.LugbotConfig;
+import com.liferay.lugbot.api.ProposalDTO;
+import com.liferay.lugbot.api.UpgradeProvider;
+import com.liferay.lugbot.api.util.GitFunctions;
+import org.osgi.framework.BundleContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.log.Logger;
+import org.osgi.service.log.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,16 +36,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.osgi.framework.BundleContext;
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.log.Logger;
-import org.osgi.service.log.LoggerFactory;
-
-import com.liferay.lugbot.api.LugbotConfig;
-import com.liferay.lugbot.api.ProposalDTO;
-import com.liferay.lugbot.api.UpgradeProvider;
-import com.liferay.lugbot.api.util.GitFunctions;
+import static com.liferay.lugbot.api.util.LogFunctions.logError;
 
 /**
  * @author Rafael Oliveira

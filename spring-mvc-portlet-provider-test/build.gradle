@@ -20,6 +20,8 @@ dependencies {
     testRuntimeOnly "biz.aQute.bnd:biz.aQute.tester.junit-platform:5.3.0"
 
     testRuntimeOnly "com.googlecode.javaewah:JavaEWAH:1.1.9"
+    testRuntimeOnly "com.google.guava:guava:21.0"
+
 
     testRuntimeOnly "commons-configuration:commons-configuration:1.10"
 
