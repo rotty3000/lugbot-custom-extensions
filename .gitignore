@@ -19,27 +19,13 @@
 
 /cloudsvc-sdk/.ivy
 
-/*/*/*/bin
-/*/*/*/classes
-/*/*/*/docroot/WEB-INF/classes
 /*/*/*/docroot/WEB-INF/lib/portal-compat-shared.jar
 /*/*/*/docroot/WEB-INF/src/META-INF/log4j.dtd
-/*/*/*/test-classes
 /*/*/*/test-results
-/*/*/*/tmp
-/*/*/bin
-/*/*/classes
-/*/*/docroot/WEB-INF/classes
 /*/*/docroot/WEB-INF/lib/portal-compat-shared.jar
 /*/*/docroot/WEB-INF/src/META-INF/log4j.dtd
-/*/*/test-classes
-/*/*/test-results
-/*/*/tmp
 /*/build.*.properties
-/*/dist
-**/generated
 /build.*.properties
-/dist
 
 _sass_cache_*.css
 
@@ -49,4 +35,9 @@ out
 classes
 data
 target
+bin
+generated
+test-classes
+test-results
+tmp
 /build-tool-sdk/
