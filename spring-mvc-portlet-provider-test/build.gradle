@@ -56,6 +56,11 @@ dependencies {
     testRuntimeOnly "org.osgi:osgi.core:7.0.0"
 
     testRuntimeOnly "org.tukaani:xz:1.9"
+
+    testRuntimeOnly group: 'org.osgi', name: 'org.osgi.util.pushstream', version: '1.0.1'
+    testRuntimeOnly group: 'org.eclipse.birt.runtime.3_7_1', name: 'org.apache.xml.resolver', version: '1.2.0'
+
+
 }
 
 tasks.named('jar', Jar) {
