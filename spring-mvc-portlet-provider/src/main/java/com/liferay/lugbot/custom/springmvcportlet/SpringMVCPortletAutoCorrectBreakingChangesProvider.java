@@ -16,7 +16,6 @@
 
 package com.liferay.lugbot.custom.springmvcportlet;
 
-import static com.liferay.lugbot.api.util.GitFunctions.commitChanges;
 import static com.liferay.lugbot.api.util.LogFunctions.logError;
 
 import com.liferay.lugbot.custom.springmvcportlet.helper.FileFunctions;
@@ -26,7 +25,6 @@ import com.liferay.lugbot.api.LugbotConfig;
 import com.liferay.lugbot.api.ProposalCommentDTO;
 import com.liferay.lugbot.api.ProposalDTO;
 import com.liferay.lugbot.api.UpgradeProvider;
-import com.liferay.lugbot.api.util.GitFunctions;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,10 +42,10 @@ import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
-
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.Version;
 import org.osgi.framework.VersionRange;
@@ -118,7 +116,6 @@ public class SpringMVCPortletAutoCorrectBreakingChangesProvider implements Upgra
 				refs, workspacePath);
 
 			if (!problems.isEmpty()) {
-				String currentBranchName = GitFunctions.getCurrentBranchName(repoPath);
 
 				Map<String, List<ProposalCommentDTO>> commitedUpgradeProblems = problems.keySet(
 				).stream(
@@ -156,34 +153,16 @@ public class SpringMVCPortletAutoCorrectBreakingChangesProvider implements Upgra
 							Collectors.toList()
 						);
 
-						try {
-							Optional<RevCommit> revCommit = commitChanges(
-								repoPath,
-								MessageFormat.format(
-									"Auto-crrected breaking change: {0}\n\n{1}\n\n{2}",
-									getServiceProperty(ref, "problem.title", autoFileMigrator.getClass().getSimpleName()),
-									getServiceProperty(ref, "problem.summary", "No summary available."),
-									getServiceProperty(ref, "problem.tickets", "No JIRA ticket available.")));
-
-							RevCommit commit = revCommit.get();
-
-							ObjectId objectId = commit.toObjectId();
-
-							return new AbstractMap.SimpleEntry<>(objectId.getName(), correctedUpgradeProblems);
-						}
-						catch (GitAPIException | IOException e) {
-							logError(_logger, e, "Unable to commit auto-corrected changes.");
-						}
-
-						return null;
+						return new AbstractMap.SimpleEntry<>(UUID.randomUUID().toString(), correctedUpgradeProblems);
 					}
 				).filter(
-					Objects::nonNull
+						Objects::nonNull
 				).map(
-					pair -> _toDTO(pair)
+						pair -> _toDTO(pair)
 				).collect(
-					Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue)
+						Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue)
 				);
+
 
 				if (!commitedUpgradeProblems.isEmpty()) {
 					StringBuilder sbDetails = new StringBuilder();
@@ -210,7 +189,7 @@ public class SpringMVCPortletAutoCorrectBreakingChangesProvider implements Upgra
 							MessageFormat.format(
 								"Automatically fixed some breaking changes from Liferay {0} to {1}", currentVersion,
 								upgradeVersion),
-							"", currentBranchName, commitedUpgradeProblems));
+							"", "", commitedUpgradeProblems));
 				}
 			}
 		}

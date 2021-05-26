@@ -60,34 +60,27 @@ public class SpringMVCPortletMigradeCodeProvider implements UpgradeProvider {
 	@Override
 	public Optional<ProposalDTO> provideUpgrade(Path repoPath, LugbotConfig lugbotConfig, String upgradeName) {
 
-		try {
-			Path pluginsSDKPath = repoPath.resolve(lugbotConfig.tasks.upgrade.pluginsSDKPath);
+		Path pluginsSDKPath = repoPath.resolve(lugbotConfig.tasks.upgrade.pluginsSDKPath);
 
-			Path workspacePath = repoPath.resolve(lugbotConfig.tasks.upgrade.workspacePath);
-			Path modulesPath = workspacePath.resolve("modules");
+		Path workspacePath = repoPath.resolve(lugbotConfig.tasks.upgrade.workspacePath);
+		Path modulesPath = workspacePath.resolve("modules");
 
-			List<String> pluginNames = lugbotConfig.tasks.upgrade.plugins;
+		List<String> pluginNames = lugbotConfig.tasks.upgrade.plugins;
 
-			String currentBranchName = GitFunctions.getCurrentBranchName(repoPath);
-			pluginNames.forEach(pluginName -> {
-				try {
-					Path from = pluginsSDKPath.resolve(pluginName);
-					Path to = modulesPath.resolve(pluginName);
-					_migrateCode(from, to);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			});
+		pluginNames.forEach(pluginName -> {
+			try {
+				Path from = pluginsSDKPath.resolve(pluginName);
+				Path to = modulesPath.resolve(pluginName);
+				_migrateCode(from, to);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
 
-			return Optional.of(
-						new ProposalDTO(
-							"SpringMVCPortletMigradeCode", "SpringMVCPortlet [Migrate Code]", "required",
-							"SpringMVCPortlet [Migrate Code]", "", currentBranchName));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
-		return Optional.empty();
+		return Optional.of(
+					new ProposalDTO(
+						"SpringMVCPortletMigradeCode", "SpringMVCPortlet [Migrate Code]", "required",
+						"SpringMVCPortlet [Migrate Code]", "", ""));
 	}
 
 

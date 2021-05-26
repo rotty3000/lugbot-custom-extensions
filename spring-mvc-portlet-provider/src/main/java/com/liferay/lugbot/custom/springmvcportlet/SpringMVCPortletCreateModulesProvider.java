@@ -20,14 +20,12 @@ package com.liferay.lugbot.custom.springmvcportlet;
 import com.liferay.lugbot.api.LugbotConfig;
 import com.liferay.lugbot.api.ProposalDTO;
 import com.liferay.lugbot.api.UpgradeProvider;
-import com.liferay.lugbot.api.util.GitFunctions;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.log.Logger;
 import org.osgi.service.log.LoggerFactory;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
@@ -57,43 +55,34 @@ public class SpringMVCPortletCreateModulesProvider implements UpgradeProvider {
 	@Override
 	public Optional<ProposalDTO> provideUpgrade(Path repoPath, LugbotConfig lugbotConfig, String upgradeName) {
 
-		try {
+		Path workspacePath = repoPath.resolve(lugbotConfig.tasks.upgrade.workspacePath);
+		Path modulesPath = workspacePath.resolve("modules");
 
-			Path workspacePath = repoPath.resolve(lugbotConfig.tasks.upgrade.workspacePath);
-			Path modulesPath = workspacePath.resolve("modules");
+		List<String> pluginNames = lugbotConfig.tasks.upgrade.plugins;
 
-			List<String> pluginNames = lugbotConfig.tasks.upgrade.plugins;
+		pluginNames.forEach(pluginName -> {
+			try {
 
-			String currentBranchName = GitFunctions.getCurrentBranchName(repoPath);
-			pluginNames.forEach(pluginName -> {
-				try {
+				_createModules(modulesPath, pluginName);
+			} catch (Exception e) {
+				e.printStackTrace();
+				logError(_logger, e);
+			}
+		});
 
-					_createModules(modulesPath, pluginName);
-				} catch (Exception e) {
-					logError(_logger, e);
-				}
-			});
-
-			return Optional.of(
-						new ProposalDTO(
-							"SpringMVCPortletMigradeCode", "SpringMVCPortlet [Migrate Code]", "required",
-							"SpringMVCPortlet [Migrate Code]", "", currentBranchName));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
-		return Optional.empty();
+		return Optional.of(
+					new ProposalDTO(
+						"SpringMVCPortletMigradeCode", "SpringMVCPortlet [Migrate Code]", "required",
+						"SpringMVCPortlet [Migrate Code]", "", ""));
 	}
 
-	private Optional<Path> _createModules(Path toPath, String moduleName) throws Exception {
+	private void _createModules(Path toPath, String moduleName) throws Exception {
 		try {
 			SpringMVCPortletHelper.unzipRepo("spring-mvc-portlet-7.2-standalone-template.zip", toPath, moduleName);
 		}
 		catch (Exception e) {
 			logError(_logger, e);
 		}
-
-		return Optional.of(toPath);
 	}
 
 	private Logger _logger;
