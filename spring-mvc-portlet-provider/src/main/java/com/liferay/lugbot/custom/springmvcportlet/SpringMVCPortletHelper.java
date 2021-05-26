@@ -86,6 +86,8 @@ public class SpringMVCPortletHelper {
 	}
 
 	public static File unzipRepo(String fileName, Path toPath, String newName) throws Exception {
+		toPath.toFile().mkdirs();
+
 		Path tempPath = toPath.resolve(fileName);
 
 		try (FileOutputStream outputStream = new FileOutputStream(tempPath.toFile());

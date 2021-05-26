@@ -12,6 +12,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.io.TempDir;
 import org.osgi.test.common.annotation.InjectService;
 import org.osgi.test.junit5.service.ServiceExtension;
 
@@ -25,11 +26,14 @@ import com.liferay.lugbot.api.UpgradeProvider;
 @ExtendWith(ServiceExtension.class)
 public class SpringMVCPortletProviderTest {
 
-	private static final String FROM_REPO_DIR = "/Volumes/Data/Projects/Liferay/GS-US/Desjardins/projects/espace-courtage/lugbot";
-
 	@Test
-	public void testSpringMVCPortletUpgradeFrom62To72() throws Exception {
-		Path repoPath = new File(FROM_REPO_DIR).toPath();
+	public void testSpringMVCPortletUpgradeFrom62To72(@TempDir Path tempDir) throws Exception {
+		tempDir.toFile().mkdirs();
+
+		File repoDir = ZipFunctions.unzipTestRepo("spring-mvc-portlet-sample.zip", tempDir);
+		System.out.println(repoDir);
+
+		Path repoPath = repoDir.toPath();
 
 		LugbotConfig lugbotConfig = initLugbot();
 
@@ -48,10 +52,10 @@ public class SpringMVCPortletProviderTest {
 		lugbotConfig.tasks.upgrade.currentVersion = "6.2";
 		lugbotConfig.tasks.upgrade.upgradeVersion = "7.2";
 
-		lugbotConfig.tasks.upgrade.pluginsSDKPath = "6.2/src/portlets";
-		lugbotConfig.tasks.upgrade.workspacePath = "7.2/src/";
+		lugbotConfig.tasks.upgrade.pluginsSDKPath = "/";
+		lugbotConfig.tasks.upgrade.workspacePath = "7.2/";
 
-		lugbotConfig.tasks.upgrade.plugins = Collections.singletonList("portail-intranet-agregateur-filtre-portlet");
+		lugbotConfig.tasks.upgrade.plugins = Collections.singletonList("spring-mvc-portlet-sample");
 
 		return lugbotConfig;
 	}
