@@ -1,11 +1,7 @@
 package com.liferay.lugbot.custom.springmvcportlet;
 
-import com.liferay.lugbot.api.util.GitFunctions;
 import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
 import org.apache.commons.compress.archivers.sevenz.SevenZFile;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.attribute.PosixFilePermissions;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -46,6 +41,7 @@ public class ZipFunctions {
             }
         }
     }
+
 
     public static void unzip(Path srcFile, Path destDir) throws Exception {
         byte[] buffer = new byte[1024];

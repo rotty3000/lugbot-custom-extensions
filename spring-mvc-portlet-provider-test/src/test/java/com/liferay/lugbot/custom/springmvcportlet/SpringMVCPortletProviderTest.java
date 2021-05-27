@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
@@ -30,8 +32,7 @@ public class SpringMVCPortletProviderTest {
 	public void testSpringMVCPortletUpgradeFrom62To72(@TempDir Path tempDir) throws Exception {
 		tempDir.toFile().mkdirs();
 
-		File repoDir = ZipFunctions.unzipTestRepo("spring-mvc-portlet-sample.zip", tempDir);
-		System.out.println(repoDir);
+		File repoDir = ZipFunctions.unzipTestRepo("workspace_springmvcportlet.zip", tempDir);
 
 		Path repoPath = repoDir.toPath();
 
@@ -52,7 +53,7 @@ public class SpringMVCPortletProviderTest {
 		lugbotConfig.tasks.upgrade.currentVersion = "6.2";
 		lugbotConfig.tasks.upgrade.upgradeVersion = "7.2";
 
-		lugbotConfig.tasks.upgrade.pluginsSDKPath = "/";
+		lugbotConfig.tasks.upgrade.pluginsSDKPath = "";
 		lugbotConfig.tasks.upgrade.workspacePath = "7.2/";
 
 		lugbotConfig.tasks.upgrade.plugins = Collections.singletonList("spring-mvc-portlet-sample");
