@@ -20,12 +20,9 @@ package com.liferay.lugbot.custom.springmvcportlet;
 import com.liferay.lugbot.api.LugbotConfig;
 import com.liferay.lugbot.api.ProposalDTO;
 import com.liferay.lugbot.api.UpgradeProvider;
-import com.liferay.lugbot.api.util.GitFunctions;
-import org.osgi.framework.BundleContext;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.log.Logger;
-import org.osgi.service.log.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,14 +40,6 @@ import static com.liferay.lugbot.api.util.LogFunctions.logError;
  */
 @Component(name = "spring-mvc-portlet-migrate-code")
 public class SpringMVCPortletMigradeCodeProvider implements UpgradeProvider {
-
-	@Activate
-	public void activate(BundleContext bundleContext) {
-
-		LoggerFactory loggerFactory = bundleContext.getService(bundleContext.getServiceReference(LoggerFactory.class));
-
-		_logger = loggerFactory.getLogger(SpringMVCPortletMigradeCodeProvider.class);
-	}
 
 	@Override
 	public List<String> computePossibleUpgrades(Path repoPath, LugbotConfig lugbotConfig) {
@@ -106,6 +95,7 @@ public class SpringMVCPortletMigradeCodeProvider implements UpgradeProvider {
 		}
 	}
 
+	@Reference(service = org.osgi.service.log.LoggerFactory.class)
 	private Logger _logger;
 
 }

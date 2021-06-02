@@ -43,9 +43,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.revwalk.RevCommit;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.Version;
 import org.osgi.framework.VersionRange;
@@ -54,7 +51,6 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.log.Logger;
-import org.osgi.service.log.LoggerFactory;
 
 /**
  * @author Gregory Amerson
@@ -62,12 +58,9 @@ import org.osgi.service.log.LoggerFactory;
 @Component(name = "spring-mvc-portlet-auto-correct-breaking-changes")
 public class SpringMVCPortletAutoCorrectBreakingChangesProvider implements UpgradeProvider {
 
-
-
 	@Activate
 	public void activate(ComponentContext componentContext) {
 		this.componentContext = componentContext;
-		_logger = _loggerFactory.getLogger(SpringMVCPortletAutoCorrectBreakingChangesProvider.class);
 	}
 
 	@Override
@@ -294,10 +287,6 @@ public class SpringMVCPortletAutoCorrectBreakingChangesProvider implements Upgra
 		return totalUpgradeProblems;
 	}
 
-	private String getServiceProperty(ServiceReference<?> serviceReference, String key, String defaultValue) {
-		return Optional.ofNullable(serviceReference.getProperty(key)).map(String::valueOf).orElse(defaultValue);
-	}
-
 	private String getComponentName(ServiceReference<?> serviceReference) {
 		return serviceReference.getProperty("component.name").toString();
 	}
@@ -320,11 +309,9 @@ public class SpringMVCPortletAutoCorrectBreakingChangesProvider implements Upgra
 		return new AbstractMap.SimpleEntry<>(pair.getKey(), dtos);
 	}
 
+	@Reference(service = org.osgi.service.log.LoggerFactory.class)
 	private Logger _logger;
 
 	private ComponentContext componentContext;
-
-	@Reference
-	private LoggerFactory _loggerFactory;
 
 }

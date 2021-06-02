@@ -80,6 +80,12 @@ def resolveTask = tasks.register('resolve', Resolve) {
     reportOptional = false
 }
 
+def resolveDistroTask = tasks.register('resolveDistro', Resolve) {
+    bndrun = file('distro.bndrun')
+    bundles = files(sourceSets.test.runtimeClasspath, configurations.archives.artifacts.files)
+    reportOptional = false
+}
+
 def testOSGi = tasks.register('testOSGi', TestOSGi) {
     dependsOn jar, resolve
 
