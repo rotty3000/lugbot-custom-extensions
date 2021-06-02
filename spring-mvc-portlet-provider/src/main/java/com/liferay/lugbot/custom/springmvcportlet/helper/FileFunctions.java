@@ -16,10 +16,7 @@
 
 package com.liferay.lugbot.custom.springmvcportlet.helper;
 
-import com.liferay.lugbot.api.util.GitFunctions;
-
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -30,7 +27,6 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 
-import java.nio.file.attribute.PosixFilePermissions;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
