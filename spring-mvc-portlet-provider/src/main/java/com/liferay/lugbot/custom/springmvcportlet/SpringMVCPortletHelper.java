@@ -14,6 +14,19 @@ import org.apache.commons.compress.archivers.sevenz.SevenZFile;
 
 public class SpringMVCPortletHelper {
 
+	public static boolean isValidMavenPath(Path path) {
+		if (Files.exists(path)) {
+			Path pom = path.resolve("pom.xml");
+
+			if (Files.exists(pom)) {
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public static void un7zip(Path sevenZPath, Path toPath, String newName) throws IOException {
 		SevenZFile sevenZFile = new SevenZFile(sevenZPath.toFile());
 
