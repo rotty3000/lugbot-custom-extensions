@@ -16,6 +16,8 @@
 
 package com.liferay.lugbot.custom.springmvcportlet;
 
+import static com.liferay.lugbot.api.util.GitFunctions.commitChanges;
+import static com.liferay.lugbot.api.util.GitFunctions.getCurrentBranchName;
 import static com.liferay.lugbot.api.util.LogFunctions.logError;
 
 import com.liferay.lugbot.custom.springmvcportlet.helper.FileFunctions;
@@ -50,12 +52,14 @@ import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.propertytypes.ServiceRanking;
 import org.osgi.service.log.Logger;
 
 /**
  * @author Gregory Amerson
  */
 @Component(name = "spring-mvc-portlet-auto-correct-breaking-changes")
+@ServiceRanking(21000)
 public class SpringMVCPortletAutoCorrectBreakingChangesProvider implements UpgradeProvider {
 
 	@Activate
@@ -175,6 +179,7 @@ public class SpringMVCPortletAutoCorrectBreakingChangesProvider implements Upgra
 						}
 					);
 
+					commitChanges(repoPath, "autocorrect breaking changes", Collections.singletonList("."));
 
 					return Optional.of(
 						new ProposalDTO(
@@ -182,7 +187,7 @@ public class SpringMVCPortletAutoCorrectBreakingChangesProvider implements Upgra
 							MessageFormat.format(
 								"Automatically fixed some breaking changes from Liferay {0} to {1}", currentVersion,
 								upgradeVersion),
-							"", "", commitedUpgradeProblems));
+							"", getCurrentBranchName(repoPath), commitedUpgradeProblems));
 				}
 			}
 		}

@@ -20,8 +20,10 @@ package com.liferay.lugbot.custom.springmvcportlet;
 import com.liferay.lugbot.api.LugbotConfig;
 import com.liferay.lugbot.api.ProposalDTO;
 import com.liferay.lugbot.api.UpgradeProvider;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.propertytypes.ServiceRanking;
 import org.osgi.service.log.Logger;
 
 import java.nio.file.Path;
@@ -29,12 +31,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static com.liferay.lugbot.api.util.GitFunctions.commitChanges;
+import static com.liferay.lugbot.api.util.GitFunctions.getCurrentBranchName;
 import static com.liferay.lugbot.api.util.LogFunctions.logError;
 
 /**
  * @author Rafael Oliveira
  */
 @Component(name = "spring-mvc-portlet-create-modules")
+@ServiceRanking(23000)
 public class SpringMVCPortletCreateModulesProvider implements UpgradeProvider {
 
 	@Override
@@ -52,18 +57,27 @@ public class SpringMVCPortletCreateModulesProvider implements UpgradeProvider {
 
 		pluginNames.forEach(pluginName -> {
 			try {
-
 				_createModules(modulesPath, pluginName);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				logError(_logger, e);
 			}
 		});
 
-		return Optional.of(
-					new ProposalDTO(
-						"SpringMVCPortletMigradeCode", "SpringMVCPortlet [Migrate Code]", "required",
-						"SpringMVCPortlet [Migrate Code]", "", ""));
+		try {
+			commitChanges(repoPath, "create spring-mvc modules", Collections.singletonList("."));
+
+			return Optional.of(
+				new ProposalDTO(
+					"SpringMVCPortletMigradeCode", "SpringMVCPortlet [Migrate Code]", "required",
+					"SpringMVCPortlet [Migrate Code]", "", getCurrentBranchName(repoPath)));
+		}
+		catch (Exception e) {
+			logError(_logger, e);
+		}
+
+		return Optional.empty();
 	}
 
 	private void _createModules(Path toPath, String moduleName) throws Exception {
